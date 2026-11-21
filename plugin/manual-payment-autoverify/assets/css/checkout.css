@@ -1,0 +1,621 @@
+/**
+ * MPAV Checkout Styles (classic + block checkout)
+ *
+ * BEM naming convention: .mpav-[block]__[element]--[modifier]
+ * RTL-safe: uses logical CSS properties.
+ * Theme colours can be overridden per site:
+ *   .mpav-payment-fields { --mpav-accent: #0a7; }
+ *
+ * @package ManualPaymentAutoVerify
+ */
+
+/* ── Tokens / scope ────────────────────────────────────────────────────────── */
+
+.mpav-payment-fields,
+.mpav-payment-fields *,
+.mpav-payment-fields *::before,
+.mpav-payment-fields *::after {
+    box-sizing: border-box;
+}
+
+.mpav-payment-fields {
+    --mpav-accent: #7f54b3;
+    --mpav-accent-soft: #f6f1fc;
+    --mpav-text: #1f2328;
+    --mpav-muted: #6b7280;
+    --mpav-border: #dcdfe4;
+    --mpav-surface: #fafafa;
+    --mpav-error: #d63638;
+    --mpav-radius: 10px;
+
+    margin-top: 1em;
+    font-size: 1em;
+    line-height: 1.5;
+    color: var(--mpav-text);
+}
+
+/* ── Description / notices ─────────────────────────────────────────────────── */
+
+.mpav-payment-fields .mpav-description {
+    margin: 0 0 1em;
+    color: var(--mpav-muted);
+}
+
+.mpav-payment-fields .mpav-no-accounts {
+    padding: .75em 1em;
+    border-inline-start: 4px solid var(--mpav-error);
+    background: #fff8f7;
+    color: #b32d2e;
+    border-radius: 4px;
+}
+
+/* ── Amount banner ─────────────────────────────────────────────────────────── */
+
+.mpav-amount {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .25em .75em;
+    margin: 0 0 1.25em;
+    padding: .85em 1em;
+    background: var(--mpav-accent-soft);
+    border: 1px solid var(--mpav-border);
+    border-radius: var(--mpav-radius);
+}
+
+.mpav-amount__label {
+    font-size: .78em;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--mpav-muted);
+}
+
+.mpav-amount__value {
+    font-size: 1.4em;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-left: auto; 
+    color: var(--mpav-text);
+}
+
+.mpav-amount__hint {
+    flex-basis: 100%;
+    font-size: .82em;
+    color: var(--mpav-muted);
+}
+
+/* ── Numbered steps (counters, so a skipped step renumbers itself) ─────────── */
+
+.mpav-steps {
+    counter-reset: mpav-step;
+}
+
+.mpav-step {
+    margin: 0 0 1.4em;
+    padding: 0;
+    border: 0;
+}
+
+.mpav-step__title {
+    display: flex;
+    align-items: center;
+    gap: .6em;
+    margin: 0 0 .75em;
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--mpav-text);
+}
+
+.mpav-step__title::before {
+    counter-increment: mpav-step;
+    content: counter(mpav-step);
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75em;
+    height: 1.75em;
+    border-radius: 50%;
+    background: var(--mpav-accent);
+    color: #fff;
+    font-size: .8em;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.mpav-step__title .required {
+    color: var(--mpav-error);
+    text-decoration: none;
+}
+
+/* ── Field wrapper / labels ────────────────────────────────────────────────── */
+
+.mpav-payment-fields .mpav-field {
+    margin: 0 0 1.1em;
+}
+
+.mpav-payment-fields .mpav-field:last-child {
+    margin-bottom: 0;
+}
+
+.mpav-payment-fields .mpav-label {
+    display: block;
+    margin: 0 0 .35em;
+    font-weight: 600;
+    color: var(--mpav-text);
+}
+
+.mpav-payment-fields .mpav-step__title.mpav-label {
+    display: flex;
+    margin: 0 0 .75em;
+}
+
+.mpav-payment-fields .mpav-label .required {
+    color: var(--mpav-error);
+    text-decoration: none;
+    margin-inline-start: .2em;
+}
+
+/* ── Provider cards ────────────────────────────────────────────────────────── */
+
+.mpav-payment-fields .mpav-provider-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6em;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+}
+
+.mpav-payment-fields .mpav-account-card {
+    --mpav-brand: var(--mpav-accent);
+
+    position: relative;
+    display: flex;
+    flex: 1 1 150px;
+    align-items: center;
+    gap: .7em;
+    margin: 0;
+    padding: .7em .9em;
+    background: #fff;
+    border: 2px solid var(--mpav-border);
+    border-radius: var(--mpav-radius);
+    cursor: pointer;
+    user-select: none;
+    text-align: start;
+    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.mpav-payment-fields .mpav-account-card[data-provider="jazzcash"]  { --mpav-brand: #e4002b; }
+.mpav-payment-fields .mpav-account-card[data-provider="easypaisa"] { --mpav-brand: #2bae4a; }
+.mpav-payment-fields .mpav-account-card[data-provider="bank"]      { --mpav-brand: #2563eb; }
+
+/* Monogram badge */
+.mpav-payment-fields .mpav-account-card::before {
+    content: "";
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1em;
+    height: 2.1em;
+    border-radius: 50%;
+    background: var(--mpav-brand);
+    color: #fff;
+    font-size: .95em;
+    font-weight: 700;
+}
+
+.mpav-payment-fields .mpav-account-card[data-provider="jazzcash"]::before  { content: "J"; }
+.mpav-payment-fields .mpav-account-card[data-provider="easypaisa"]::before { content: "E"; }
+.mpav-payment-fields .mpav-account-card[data-provider="bank"]::before      { content: "B"; }
+
+.mpav-payment-fields .mpav-account-card:hover {
+    border-color: var(--mpav-brand);
+}
+
+.mpav-payment-fields .mpav-account-card--active,
+.mpav-payment-fields .mpav-account-card:has(.mpav-provider-radio:checked) {
+    border-color: var(--mpav-brand);
+    background: var(--mpav-accent-soft);
+    box-shadow: 0 0 0 1px var(--mpav-brand);
+}
+
+/* Check mark on the selected card */
+.mpav-payment-fields .mpav-account-card--active::after,
+.mpav-payment-fields .mpav-account-card:has(.mpav-provider-radio:checked)::after {
+    content: "\2713";
+    position: absolute;
+    inset-block-start: .45em;
+    inset-inline-end: .55em;
+    font-size: .8em;
+    font-weight: 700;
+    color: var(--mpav-brand);
+}
+
+.mpav-payment-fields .mpav-account-card:focus-within {
+    outline: 2px solid var(--mpav-brand);
+    outline-offset: 2px;
+}
+
+/* Visually hidden radio (still keyboard / AT accessible) */
+.mpav-payment-fields .mpav-provider-radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.mpav-account-card__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.mpav-account-card__label {
+    font-weight: 700;
+    font-size: .95em;
+    line-height: 1.25;
+    color: var(--mpav-text);
+}
+
+.mpav-account-card__name {
+    font-size: .82em;
+    line-height: 1.3;
+    color: var(--mpav-muted);
+    overflow-wrap: anywhere;
+}
+
+/* Blocks renders label/name as direct children of the card */
+.mpav-account-card > .mpav-account-card__label,
+.mpav-account-card > .mpav-account-card__name {
+    display: block;
+}
+
+/* ── Account detail panel ──────────────────────────────────────────────────── */
+
+.mpav-payment-fields .mpav-account-details {
+    display: none;
+    margin: 0;
+    padding: 1em;
+    background: var(--mpav-surface);
+    border: 1px solid var(--mpav-border);
+    border-radius: var(--mpav-radius);
+}
+
+.mpav-payment-fields .mpav-account-details--active {
+    display: block;
+}
+
+/* Without JS, show every panel. */
+.mpav-no-js .mpav-account-details {
+    display: block;
+    margin-bottom: .75em;
+}
+
+.mpav-account-details__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5em .65em;
+    margin: 0 0 .85em;
+}
+
+.mpav-chip {
+    display: inline-block;
+    padding: .15em .65em;
+    border-radius: 999px;
+    background: var(--mpav-accent);
+    color: #fff;
+    font-size: .78em;
+    font-weight: 700;
+    letter-spacing: .02em;
+}
+
+.mpav-account-details[data-provider="jazzcash"]  .mpav-chip { background: #e4002b; }
+.mpav-account-details[data-provider="easypaisa"] .mpav-chip { background: #2bae4a; }
+.mpav-account-details[data-provider="bank"]      .mpav-chip { background: #2563eb; }
+
+.mpav-account-details__name {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+/* Account number row */
+.mpav-account-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5em .75em;
+    padding: .7em .9em;
+    background: #fff;
+    border: 1px dashed #b9bec7;
+    border-radius: 8px;
+}
+
+.mpav-account-info__label {
+    font-size: .85em;
+    color: var(--mpav-muted);
+}
+
+.mpav-account-info__number {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 1.25em;
+    font-weight: 700;
+    letter-spacing: .03em;
+    font-variant-numeric: tabular-nums;
+    color: var(--mpav-text);
+    overflow-wrap: anywhere;
+    user-select: all;
+}
+
+/* Copy button */
+.mpav-payment-fields .mpav-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding: .35em .85em;
+    border: 1px solid var(--mpav-accent);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--mpav-accent);
+    font-size: .85em;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background .12s ease, color .12s ease;
+}
+
+.mpav-payment-fields .mpav-copy-btn:hover,
+.mpav-payment-fields .mpav-copy-btn:focus-visible {
+    background: var(--mpav-accent);
+    color: #fff;
+    outline: none;
+}
+
+.mpav-payment-fields .mpav-copy-btn--done,
+.mpav-payment-fields .mpav-copy-btn--done:hover {
+    background: #1a7f37;
+    border-color: #1a7f37;
+    color: #fff;
+}
+
+/* QR */
+.mpav-qr-wrap {
+    margin-top: .9em;
+    text-align: center;
+}
+
+.mpav-qr-image {
+    display: block;
+    max-width: 200px;
+    height: auto;
+    margin-inline: auto;
+    padding: .4em;
+    background: #fff;
+    border: 1px solid var(--mpav-border);
+    border-radius: 8px;
+}
+
+.mpav-qr-caption {
+    display: block;
+    margin-top: .4em;
+    font-size: .8em;
+    color: var(--mpav-muted);
+}
+
+/* Instructions */
+.mpav-instructions {
+    margin-top: .9em;
+    padding-top: .8em;
+    border-top: 1px solid var(--mpav-border);
+    font-size: .875em;
+    line-height: 1.6;
+    color: #4b5563;
+}
+
+.mpav-instructions p:last-child {
+    margin-bottom: 0;
+}
+
+/* ── Inputs ────────────────────────────────────────────────────────────────── */
+
+.mpav-payment-fields .mpav-input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: .7em .85em;
+    border: 1px solid #c3c8d0;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--mpav-text);
+    font-size: 1em;
+    line-height: 1.4;
+    appearance: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.mpav-payment-fields .mpav-input::placeholder {
+    color: #9aa1ac;
+}
+
+.mpav-payment-fields .mpav-input:focus {
+    border-color: var(--mpav-accent);
+    box-shadow: 0 0 0 3px rgba(127, 84, 179, .2);
+    outline: none;
+}
+
+.mpav-payment-fields .mpav-input--invalid {
+    border-color: var(--mpav-error);
+}
+
+.mpav-payment-fields .mpav-input--invalid:focus {
+    box-shadow: 0 0 0 3px rgba(214, 54, 56, .2);
+}
+
+/* Hints & errors */
+.mpav-payment-fields .mpav-field-hint {
+    display: block;
+    margin-top: .35em;
+    font-size: .8em;
+    color: var(--mpav-muted);
+}
+
+.mpav-payment-fields .mpav-field-error {
+    display: block;
+    margin-top: .35em;
+    font-size: .85em;
+    font-weight: 600;
+    color: var(--mpav-error);
+}
+
+/* Reassurance note */
+.mpav-payment-fields .mpav-note {
+    display: flex;
+    align-items: flex-start;
+    gap: .5em;
+    margin: 1.1em 0 0;
+    padding: .65em .85em;
+    background: var(--mpav-surface);
+    border-radius: 8px;
+    font-size: .82em;
+    color: var(--mpav-muted);
+}
+
+.mpav-payment-fields .mpav-note::before {
+    content: "\2139";
+    flex: none;
+    color: var(--mpav-accent);
+    font-weight: 700;
+}
+
+/* ── RTL ───────────────────────────────────────────────────────────────────── */
+
+[dir="rtl"] .mpav-account-info__number {
+    direction: ltr;
+    unicode-bidi: plaintext;
+    text-align: end;
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+    .mpav-account-card,
+    .mpav-copy-btn,
+    .mpav-input {
+        transition: none;
+    }
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+    .mpav-payment-fields .mpav-account-card {
+        flex-basis: 100%;
+    }
+
+    .mpav-account-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .mpav-amount__value {
+        font-size: 1.25em;
+    }
+
+    .mpav-qr-image {
+        max-width: 170px;
+    }
+}
+
+/* ── Payment method row (classic checkout list) ────────────────────────────── */
+
+#payment ul.payment_methods li.payment_method_mpav > label {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#payment ul.payment_methods li.payment_method_mpav .mpav-method-icon {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    margin-inline-start: .5em;
+    color: #7f54b3;
+}
+
+#payment ul.payment_methods li.payment_method_mpav .mpav-method-icon svg {
+    display: block;
+    width: 1.3em;
+    height: 1.3em;
+}
+
+/* A merchant-supplied icon image must not blow up the row. */
+#payment ul.payment_methods li.payment_method_mpav > label img {
+    float: none;
+    width: auto;
+    max-width: 90px;
+    max-height: 26px;
+    margin-inline-start: .5em;
+    vertical-align: middle;
+}
+
+/* Details box: clean card instead of the grey WooCommerce box with its arrow. */
+#payment div.payment_box.payment_method_mpav {
+    margin: .75em 0 0;
+    padding: 1.1em 1.1em 1.2em;
+    background: #fff;
+    color: inherit;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+#payment div.payment_box.payment_method_mpav::before,
+#payment div.payment_box.payment_method_mpav::after {
+    display: none;
+}
+
+#payment div.payment_box.payment_method_mpav .mpav-payment-fields {
+    margin-top: 0;
+}
+
+#payment div.payment_box.payment_method_mpav .mpav-description {
+    margin-top: 0;
+}
+
+/* ── Payment method row (block checkout) ───────────────────────────────────── */
+
+.mpav-method-label {
+    display: inline-flex;
+    align-items: center;
+    gap: .5em;
+    font-weight: 600;
+}
+
+.mpav-method-label .mpav-method-icon {
+    display: inline-flex;
+    color: #7f54b3;
+}
+
+.mpav-method-label .mpav-method-icon svg {
+    display: block;
+    width: 1.3em;
+    height: 1.3em;
+}
+
+.wc-block-components-radio-control-accordion-content:has(> .mpav-payment-fields) {
+    padding: 1em 1.1em 1.2em;
+}
+
+.wc-block-components-radio-control-accordion-content > .mpav-payment-fields {
+    margin-top: 0;
+}

@@ -1,0 +1,531 @@
+/**
+ * MPAV Admin Styles
+ *
+ * @package ManualPaymentAutoVerify
+ */
+
+/* ==========================================================================
+   Badges and Status Indicators
+   ========================================================================== */
+
+.mpav-badge {
+	display: inline-block;
+	padding: 3px 8px;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 1.2;
+	border-radius: 4px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	border: 1px solid transparent;
+}
+
+.mpav-badge--pending {
+	background-color: #fef3c7;
+	color: #92400e;
+	border-color: #fcd34d;
+}
+
+.mpav-badge--auto_verified {
+	background-color: #d1fae5;
+	color: #065f46;
+	border-color: #6ee7b7;
+}
+
+.mpav-badge--flagged {
+	background-color: #fee2e2;
+	color: #991b1b;
+	border-color: #fca5a5;
+}
+
+.mpav-badge--rejected {
+	background-color: #f3f4f6;
+	color: #4b5563;
+	border-color: #d1d5db;
+	text-decoration: line-through;
+}
+
+.mpav-badge--expired {
+	background-color: #f3f4f6;
+	color: #6b7280;
+	border-color: #e5e7eb;
+}
+
+/* Provider Pills */
+.mpav-provider-pill {
+	display: inline-block;
+	padding: 2px 7px;
+	font-size: 11px;
+	font-weight: 700;
+	border-radius: 12px;
+	text-transform: capitalize;
+}
+
+.mpav-provider-pill--jazzcash {
+	background-color: #fee2e2;
+	color: #dc2626;
+	border: 1px solid #f87171;
+}
+
+.mpav-provider-pill--easypaisa {
+	background-color: #ecfdf5;
+	color: #059669;
+	border: 1px solid #34d399;
+}
+
+.mpav-provider-pill--bank {
+	background-color: #eff6ff;
+	color: #2563eb;
+	border: 1px solid #93c5fd;
+}
+
+/* Heartbeat Indicator */
+.mpav-heartbeat-dot {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	margin-right: 5px;
+	vertical-align: middle;
+}
+
+.mpav-heartbeat-dot--online {
+	background-color: #10b981;
+	box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.mpav-heartbeat-dot--offline {
+	background-color: #9ca3af;
+}
+
+.mpav-text-success {
+	color: #059669;
+	font-weight: 600;
+}
+
+.mpav-text-warning {
+	color: #d97706;
+	font-weight: 600;
+}
+
+.mpav-icon-success {
+	color: #10b981;
+	font-size: 16px;
+	vertical-align: text-bottom;
+}
+
+.mpav-raw-tid {
+	font-size: 11px;
+	color: #6b7280;
+	margin-top: 2px;
+}
+
+.mpav-expired-notice {
+	color: #dc2626;
+	font-weight: 600;
+	font-size: 11px;
+}
+
+/* ==========================================================================
+   Page Headers and Empty States
+   ========================================================================== */
+
+.mpav-page-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 15px 0 10px;
+}
+
+.mpav-empty-state {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 60px 20px;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.mpav-empty-icon {
+	font-size: 56px;
+	width: 56px;
+	height: 56px;
+	color: #a7aaad;
+	margin-bottom: 15px;
+}
+
+.mpav-row--revoked {
+	opacity: 0.6;
+	background-color: #fafafa !important;
+}
+
+/* ==========================================================================
+   Order Edit Metabox
+   ========================================================================== */
+
+.mpav-metabox-container {
+	padding: 5px 0;
+}
+
+.mpav-claim-card {
+	padding: 4px 0;
+}
+
+.mpav-claim-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.mpav-claim-meta {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 12px;
+}
+
+.mpav-claim-meta li {
+	margin-bottom: 5px;
+}
+
+.mpav-claim-actions {
+	display: flex;
+	gap: 6px;
+}
+
+/* ==========================================================================
+   Modal Dialog
+   ========================================================================== */
+
+.mpav-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.mpav-modal-backdrop {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.65);
+}
+
+.mpav-modal-content {
+	position: relative;
+	background: #fff;
+	width: 680px;
+	max-width: 90%;
+	border-radius: 8px;
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	max-height: 90vh;
+}
+
+.mpav-modal-header {
+	padding: 16px 20px;
+	border-bottom: 1px solid #e5e7eb;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mpav-modal-header h2 {
+	margin: 0;
+	font-size: 18px;
+}
+
+.mpav-modal-close {
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	color: #6b7280;
+	line-height: 1;
+}
+
+.mpav-modal-close:hover {
+	color: #111827;
+}
+
+.mpav-modal-body {
+	padding: 20px;
+	overflow-y: auto;
+}
+
+.mpav-modal-footer {
+	padding: 12px 20px;
+	border-top: 1px solid #e5e7eb;
+	background: #f9fafb;
+	text-align: right;
+}
+
+.mpav-pairing-layout {
+	display: flex;
+	gap: 24px;
+	align-items: flex-start;
+}
+
+@media (max-width: 640px) {
+	.mpav-pairing-layout {
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+.mpav-qr-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 220px;
+}
+
+.mpav-qr-box {
+	width: 200px;
+	height: 200px;
+	border: 2px dashed #d1d5db;
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: #f9fafb;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.mpav-qr-box svg {
+	width: 100%;
+	height: 100%;
+}
+
+.mpav-timer-text {
+	margin-top: 10px;
+	font-size: 12px;
+	color: #4b5563;
+}
+
+.mpav-timer-text strong {
+	color: #dc2626;
+}
+
+.mpav-instructions-section {
+	flex: 1;
+}
+
+.mpav-instructions-section h3 {
+	margin-top: 0;
+	font-size: 15px;
+}
+
+.mpav-steps-list {
+	margin: 0 0 15px 20px;
+	padding: 0;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.mpav-input-copy-group {
+	display: flex;
+	gap: 6px;
+	margin-top: 4px;
+}
+
+.mpav-input-copy-group input {
+	flex: 1;
+	font-family: monospace;
+	font-size: 12px;
+	background: #f9fafb;
+}
+
+.mpav-loading-spinner {
+	width: 32px;
+	height: 32px;
+	border: 3px solid #e5e7eb;
+	border-top-color: #2563eb;
+	border-radius: 50%;
+	animation: mpav-spin 1s linear infinite;
+	margin-bottom: 10px;
+}
+
+@keyframes mpav-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.mpav-context-json {
+	margin: 0;
+	padding: 6px 8px;
+	background: #f9fafb;
+	border: 1px solid #e5e7eb;
+	border-radius: 4px;
+	font-size: 11px;
+	max-height: 120px;
+	overflow: auto;
+}
+
+.mpav-event-badge {
+	display: inline-block;
+	background: #e5e7eb;
+	color: #374151;
+	padding: 2px 6px;
+	border-radius: 3px;
+	font-family: monospace;
+	font-size: 11px;
+}
+
+/* Screenshot Action Buttons */
+.mpav-btn-view-screenshot {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	color: #2563eb;
+	border-color: #93c5fd;
+	background: #eff6ff;
+	font-size: 12px;
+	text-decoration: none;
+	padding: 0 8px 1px !important;
+}
+
+.mpav-btn-view-screenshot:hover,
+.mpav-btn-view-screenshot:focus {
+	color: #1d4ed8;
+	border-color: #60a5fa;
+	background: #dbeafe;
+}
+
+.mpav-view-screenshot-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	margin-left: 6px;
+}
+
+
+/* Verification Queue: search UX */
+/* Hide the "N items" badge (totals are already shown in the status tabs). */
+.mpav-admin-wrap .tablenav .displaying-num {
+	display: none;
+}
+/* Search sits on the same row as the provider filter, right side. */
+.mpav-admin-wrap .tablenav.top .mpav-search-inline {
+	float: right;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin: 0;
+}
+.mpav-search-inline input[type="search"] {
+	height: 30px;
+	min-height: 30px;
+	margin: 0;
+	width: 240px;
+	max-width: 100%;
+}
+.mpav-search-inline .button {
+	margin: 0;
+}
+.mpav-search-summary {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	clear: both;
+	margin: 8px 0 10px;
+	padding: 8px 12px;
+	background: #f0f6fc;
+	border-left: 4px solid #2271b1;
+	border-radius: 2px;
+}
+.mpav-search-summary .dashicons {
+	color: #2271b1;
+}
+mark.mpav-hit {
+	background: #fff3a3;
+	color: inherit;
+	padding: 0 2px;
+	border-radius: 2px;
+}
+
+/* Device Manager: header actions + danger button */
+.mpav-page-header {
+	gap: 20px;
+}
+
+/* Text takes whatever space is left; buttons get priority. */
+.mpav-page-header > div:first-child {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.mpav-page-header__actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: nowrap;
+	flex: 0 0 auto;
+	gap: 8px;
+}
+
+.mpav-page-header__actions .button {
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+.mpav-page-header__actions .button-hero {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	float: none;
+	margin: 0;
+	line-height: 1;
+	min-height: 46px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.wp-core-ui .mpav-page-header__actions .button.button-hero .dashicons {
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	line-height: 20px;
+	margin: 0;
+	vertical-align: middle;
+}
+
+/* Trash glyph sits slightly low inside its box. */
+.mpav-page-header__actions .dashicons-trash {
+	transform: translateY(-1px);
+}
+
+@media (max-width: 782px) {
+	.mpav-page-header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.mpav-page-header__actions {
+		flex-wrap: wrap;
+	}
+}
+
+.mpav-btn-clear-all-devices.button {
+	color: #b32d2e;
+	border-color: #b32d2e;
+}
+.mpav-btn-clear-all-devices.button:hover,
+.mpav-btn-clear-all-devices.button:focus {
+	color: #fff;
+	background: #b32d2e;
+	border-color: #b32d2e;
+}
